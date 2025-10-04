@@ -1,0 +1,1 @@
+const applyCouponSync=(code,subtotalSale)=>{if(!code)return{ok:true,discount:0,coupon:null};if(code==='WELCOME5'){if(subtotalSale<100000)return{ok:false,message:'Chưa đạt giá trị tối thiểu'};return{ok:true,discount:Math.floor(subtotalSale*0.05),coupon:{id:1,code}}}return{ok:false,message:'Mã không tồn tại'}};module.exports={applyCouponSync};

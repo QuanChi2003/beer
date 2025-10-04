@@ -1,0 +1,83 @@
+<% layout('layout') %>
+<h1>Thực đơn</h1>
+<h3>Danh mục</h3>
+<form method="post" action="/admin/categories/add" class="inline">
+  <input name="name" placeholder="Tên danh mục" required>
+  <button class="btn">Thêm</button>
+</form>
+<ul>
+  <% categories.forEach(c => { %>
+    <li>#<%= c.id %> – <%= c.name %>
+      <form method="post" action="/admin/categories/update" class="inline">
+        <input type="hidden" name="id" value="<%= c.id %>">
+        <input name="name" value="<%= c.name %>" style="width:180px">
+        <button class="btn small">Đổi tên</button>
+      </form>
+      <form method="post" action="/admin/categories/delete" class="inline" onsubmit="return confirm('Xóa danh mục?')">
+        <input type="hidden" name="id" value="<%= c.id %>">
+        <button class="btn danger small">Xóa</button>
+      </form>
+    </li>
+  <% }) %>
+</ul>
+<p><a href="/admin/subcategories">Quản lý nhóm nhỏ</a></p>
+
+<h3>Món ăn</h3>
+<form method="post" action="/admin/menu/add">
+  <select name="branch_id"><% branches.forEach(b=>{ %><option value="<%= b.id %>"><%= b.name %></option><% }) %></select>
+  <select name="category_id" id="catSel"><option value="">(Không)</option><% categories.forEach(c=>{ %><option value="<%= c.id %>"><%= c.name %></option><% }) %></select>
+  <select name="subcategory_id" id="subSel"><option value="">(Nhóm nhỏ)</option></select>
+  <input name="name" placeholder="Tên món" required>
+  <input name="description" placeholder="Mô tả">
+  <input name="image_url" placeholder="Ảnh URL">
+  <input type="number" name="sale_price" placeholder="Giá bán (VND)" required>
+  <input type="number" name="cost_price" placeholder="Giá gốc (VND)" required>
+  <button class="btn">Thêm món</button>
+</form>
+
+<script>
+(async function(){
+  try {
+    const res = await fetch('/admin/subcategories', { headers:{'x-requested-with':'fetch'} });
+    const html = await res.text();
+    const m = html.match(/data-subs='([^']+)'/);
+    if (!m) return;
+    const subs = JSON.parse(decodeURIComponent(m[1]));
+    const catSel = document.getElementById('catSel');
+    const subSel = document.getElementById('subSel');
+    function fill(){
+      const cat = catSel.value;
+      subSel.innerHTML = '<option value="">(Nhóm nhỏ)</option>';
+      subs.filter(s=> String(s.category_id)===String(cat)).forEach(s=>{
+        const o = document.createElement('option'); o.value=s.id; o.textContent=s.name; subSel.appendChild(o);
+      });
+    }
+    catSel.addEventListener('change', fill);
+    fill();
+  } catch(e){}
+})();
+</script>
+
+<table class="table">
+  <tr><th>ID</th><th>CN</th><th>Danh mục</th><th>Nhóm nhỏ</th><th>Tên</th><th>Giá bán</th><th>TT</th><th></th></tr>
+  <% items.forEach(i => { %>
+    <tr>
+      <td><%= i.id %></td><td><%= i.branch_id %></td>
+      <td><%= i.category_id %></td><td><%= i.subcategory_id || '-' %></td>
+      <td><%= i.name %></td>
+      <td><%= i.sale_price.toLocaleString() %> đ</td>
+      <td><%= i.is_available? 'Bán' : 'Ẩn' %></td>
+      <td>
+        <form method="post" action="/admin/menu/toggle">
+          <input type="hidden" name="id" value="<%= i.id %>">
+          <input type="hidden" name="is_available" value="<%= i.is_available?0:1 %>">
+          <button class="btn small"><%= i.is_available? 'Ẩn' : 'Bán' %></button>
+        </form>
+        <form method="post" action="/admin/menu/delete" onsubmit="return confirm('Xóa món?')">
+          <input type="hidden" name="id" value="<%= i.id %>">
+          <button class="btn danger small">Xóa</button>
+        </form>
+      </td>
+    </tr>
+  <% }) %>
+</table>

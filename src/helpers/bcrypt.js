@@ -1,0 +1,1 @@
+const bcrypt=require('bcryptjs');function hash(pw){return bcrypt.hash(pw,10)}function compare(pw,h){return bcrypt.compare(pw,h)}module.exports={hash,compare};

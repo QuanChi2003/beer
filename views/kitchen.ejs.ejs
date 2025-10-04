@@ -1,0 +1,35 @@
+<% layout('layout') %>
+<h1>Kitchen Display (KDS)</h1>
+<p>Chỉ định cho: kitchen/manager/admin</p>
+<div id="cols" class="kds">
+  <div><h3>Chờ</h3><div id="col-pending" class="stack"></div></div>
+  <div><h3>Đang làm</h3><div id="col-preparing" class="stack"></div></div>
+  <div><h3>Sẵn sàng</h3><div id="col-ready" class="stack"></div></div>
+</div>
+<style>.kds{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}.stack{display:flex;flex-direction:column;gap:.6rem}.tile{border:1px solid #eee;border-radius:.6rem;padding:.6rem;background:#fff}.tile h4{margin:.2rem 0}.tile .meta{font-size:.9rem;color:#666}.tile .actions{margin-top:.4rem;display:flex;gap:.4rem;flex-wrap:wrap}.tile button{padding:.35rem .6rem}@media (max-width:900px){ .kds{grid-template-columns:1fr} }</style>
+<script>
+async function fetchOrders(){
+  const res = await fetch('/api/kitchen/orders');
+  const rows = await res.json();
+  const by = {pending:[],confirmed:[],preparing:[],ready:[]};
+  rows.forEach(o=> by[o.status]?.push(o));
+  render('pending', by.pending); render('preparing', by.preparing); render('ready', by.ready);
+}
+function money(n){ return (n||0).toLocaleString('vi-VN') + ' đ'; }
+function el(html){ const d=document.createElement('div'); d.innerHTML=html.trim(); return d.firstChild; }
+function render(col, arr){
+  const c = document.getElementById('col-'+col); c.innerHTML='';
+  arr.forEach(o=>{
+    const info = o.order_type==='dine-in' ? 'Bàn ' + o.table_number : (o.delivery_name+' – '+o.delivery_phone);
+    const div = el(`<div class="tile"><h4>#${o.id} · ${o.order_type}</h4><div class="meta">${info}</div><div class="meta">Tổng: <b>${money(o.total)}</b></div><div class="actions">
+        ${o.status!=='confirmed'?'<button onclick="setStatus('+o.id+',\'confirmed\')">Xác nhận</button>':''}
+        ${o.status!=='preparing'?'<button onclick="setStatus('+o.id+',\'preparing\')">Đang làm</button>':''}
+        ${o.status!=='ready'?'<button onclick="setStatus('+o.id+',\'ready\')">Sẵn sàng</button>':''}
+        ${o.status!=='completed'?'<button onclick="setStatus('+o.id+',\'completed\')">Hoàn tất</button>':''}
+      </div></div>`);
+    c.appendChild(div);
+  });
+}
+async function setStatus(id, status){ await fetch('/api/kitchen/update',{method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({id, status})}); fetchOrders(); }
+setInterval(fetchOrders, 5000); fetchOrders();
+</script>

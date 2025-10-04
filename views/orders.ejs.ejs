@@ -1,0 +1,1 @@
+<% layout('layout') %><h1>Đơn hàng</h1><table class='table'><tr><th>ID</th><th>Ngày</th><th>Loại</th><th>Trạng thái</th><th>Tổng</th></tr><% orders.forEach(o=>{ %><tr><td>#<%= o.id %></td><td><%= moment(o.created_at).format('DD/MM/YYYY HH:mm') %></td><td><%= o.order_type %></td><td><%= o.status %></td><td><%= (o.total||0).toLocaleString() %> đ</td></tr><% }) %></table>

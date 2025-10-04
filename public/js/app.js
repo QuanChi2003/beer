@@ -1,0 +1,1 @@
+async function addToCart(id){const r=await fetch('/api/cart/add',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({item_id:id,qty:1})});const j=await r.json();alert(j.ok?'Đã thêm vào giỏ!':'Lỗi thêm giỏ hàng');}
