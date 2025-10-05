@@ -1,0 +1,10 @@
+
+export function calcTier(points:number){
+  if (points>=10000) return 'Platinum'
+  if (points>=5000) return 'Gold'
+  if (points>=1000) return 'Silver'
+  return 'Bronze'
+}
+export function earnPoints(total:number){
+  return Math.round(Number(total)/1000) // 1 điểm/1.000đ
+}
