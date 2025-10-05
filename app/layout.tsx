@@ -6,7 +6,7 @@ import { CartProvider } from '@/components/Cart'
 
 export const metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://beer-teal.vercel.app'),
-  title: 'Beer Cầu Gẫy — Đặt món',
+  title: 'Beer Cầu Gẫy — DB',
   description: 'Website order cho quán Beer Cầu Gẫy (cre:Quân)',
   openGraph:{ images:['/og.png'] }
 }

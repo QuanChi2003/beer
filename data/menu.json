@@ -79,8 +79,6 @@
     {
       "code": "BEER10",
       "percent_off": 10,
-      "max_uses": 100,
-      "used": 0,
       "active": true
     }
   ]

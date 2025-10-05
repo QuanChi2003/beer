@@ -2,14 +2,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-body { @apply text-neutral-900 font-display bg-foam; }
+body { @apply text-neutral-900 font-display bg-mesh; }
 .container { @apply mx-auto max-w-6xl px-4; }
 .btn { @apply inline-flex items-center gap-2 rounded-lg border border-neutral-300 px-3 py-2 text-sm hover:bg-neutral-100 active:scale-[.98] transition; }
 .btn-primary { @apply bg-brand text-white border-transparent hover:brightness-110; }
 .input { @apply rounded-md border border-neutral-300 px-3 py-2 w-full; }
-.card { @apply bg-white/95 backdrop-blur border border-neutral-200 rounded-2xl shadow-card; }
-.nav { @apply sticky top-0 z-50 bg-white/85 backdrop-blur border-b; }
-.kbd { @apply rounded border bg-neutral-50 px-1 text-[11px]; }
+.card { @apply bg-white/90 backdrop-blur border border-neutral-200 rounded-2xl shadow-card; }
+.nav { @apply sticky top-0 z-50 bg-white/75 backdrop-blur border-b; }
 .toast-wrap{ position: fixed; top: 12px; right: 12px; display:flex; flex-direction:column; gap:.5rem; z-index:9999 }
 .toast{ @apply bg-neutral-900 text-white rounded-md px-3 py-2 shadow-lg; }
 .badge{ @apply inline-flex items-center px-2 py-0.5 rounded-full text-xs border; }
+.hero { @apply relative overflow-hidden rounded-3xl p-8 md:p-12; background: radial-gradient(1200px 400px at -10% 0%, #fff7e6 0, #fff 60%, transparent 60%), linear-gradient(120deg, rgba(245,158,11,.07), rgba(255,255,255,0)); }

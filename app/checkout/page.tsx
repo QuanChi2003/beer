@@ -13,7 +13,6 @@ export default function CheckoutPage(){
   const [phone,setPhone]=useState('')
   const [addr,setAddr]=useState('')
   const [note,setNote]=useState('')
-  const [coupon,setCoupon]=useState('')
   const [done,setDone]=useState<any>(null)
   const [loading,setLoading]=useState(false)
   const [err,setErr]=useState('')
@@ -29,7 +28,7 @@ export default function CheckoutPage(){
     setErr(''); setLoading(true)
     try{
       const res = await fetch('/api/orders',{method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({
-        items: items.map(i=>({id:i.id, qty:i.qty})), order_type: orderType, table_number: tableNo||undefined, customer_name:name||undefined, phone:phone||undefined, address:addr||undefined, note:note||undefined, coupon_code: coupon||undefined
+        items: items.map(i=>({id:i.id, qty:i.qty})), order_type: orderType, table_number: tableNo||undefined, customer_name:name||undefined, phone:phone||undefined, address:addr||undefined, note:note||undefined
       })})
       const text = await res.text(); setLoading(false)
       if(!res.ok){ setErr(text||'Lỗi'); push('Có lỗi'); return }
@@ -58,7 +57,6 @@ export default function CheckoutPage(){
                 <p className="sm:col-span-2 text-xs text-neutral-500">(Lưu ý: quán sẽ tính phí ship riêng tuỳ theo nơi)</p>
               </div>
             )}
-            <div><label className="text-sm">Mã giảm giá</label><input className="input" placeholder="VD: BEER10" value={coupon} onChange={e=>setCoupon(e.target.value.toUpperCase())} /></div>
             <div><label className="text-sm">Ghi chú</label><input className="input" value={note} onChange={e=>setNote(e.target.value)} placeholder="Không cay, thêm đá..." /></div>
             <button className="btn btn-primary" disabled={loading} onClick={place}>{loading?'Đang đặt…':'Đặt món'}</button>
           </div>

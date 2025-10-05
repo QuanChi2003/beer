@@ -36,13 +36,7 @@ function Reports(){
   const { data, error } = useSWR('/api/admin/reports?range='+range, fetcher)
   const chart = useMemo(()=>{
     if (!data) return null
-    return {
-      labels: data.map((r:any)=> new Date(r.bucket).toLocaleDateString('vi-VN')),
-      datasets: [
-        { label:'Doanh thu', data: data.map((r:any)=>r.revenue) },
-        { label:'Lợi nhuận', data: data.map((r:any)=>r.profit) },
-      ]
-    }
+    return { labels: data.map((r:any)=> new Date(r.bucket).toLocaleDateString('vi-VN')), datasets: [ { label:'Doanh thu', data: data.map((r:any)=>r.revenue) }, { label:'Lợi nhuận', data: data.map((r:any)=>r.profit) } ] }
   },[data])
   return <div className="card p-4">
     <div className="flex items-center justify-between"><h2 className="font-semibold">Báo cáo</h2>
@@ -50,8 +44,7 @@ function Reports(){
         <option value="day">Ngày</option><option value="week">Tuần</option><option value="month">Tháng</option><option value="year">Năm</option>
       </select>
     </div>
-    {error ? <p className="text-sm text-red-600">Lỗi: {String(error.message||error)}</p> : !data ? <p>Đang tải…</p> :
-      <div className="mt-3"><Bar data={chart as any} /></div>}
+    {error ? <p className="text-sm text-red-600">Lỗi: {String(error.message||error)}</p> : !data ? <p>Đang tải…</p> : <div className="mt-3"><Bar data={chart as any} /></div>}
   </div>
 }
 
@@ -61,10 +54,7 @@ function ManageCategories(){
   if (error) return <div className="card p-4"><h2 className="font-semibold">Phân loại</h2><p className="text-red-600 text-sm">Lỗi: {String(error.message||error)}</p></div>
   if (!data) return <div className="card p-4"><h2 className="font-semibold">Phân loại</h2><p>Đang tải…</p></div>
   const roots=data.filter((c:any)=>!c.parent_id)
-  async function submit(){
-    const r=await fetch('/api/admin/categories',{method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({name, parent_id: parent||null, pos: Number(pos)||0})})
-    if (r.ok){ setName(''); setParent(''); setPos(''); mutate(); }
-  }
+  async function submit(){ const r=await fetch('/api/admin/categories',{method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({name, parent_id: parent||null, pos: Number(pos)||0})}); if (r.ok){ setName(''); setParent(''); setPos(''); mutate(); } }
   return <div className="card p-4 space-y-3">
     <h2 className="font-semibold">Phân loại</h2>
     <div className="grid sm:grid-cols-3 gap-4">
@@ -92,10 +82,7 @@ function ManageItems(){
   const [f,setF]=useState<any>({ name:'', image_url:'', category_id:'', description:'', sale_price:'', cost_price:'', is_active:true })
   if (error) return <div className="card p-4"><h2 className="font-semibold">Món ăn/đồ uống</h2><p className="text-red-600 text-sm">Lỗi: {String(error.message||error)}</p></div>
   if (!data) return <div className="card p-4"><h2 className="font-semibold">Món ăn/đồ uống</h2><p>Đang tải…</p></div>
-  async function submit(){
-    const r=await fetch('/api/admin/items',{method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({...f, sale_price:Number(f.sale_price||0), cost_price:Number(f.cost_price||0)})})
-    if (r.ok){ setF({ name:'', image_url:'', category_id:'', description:'', sale_price:'', cost_price:'', is_active:true }); mutate() }
-  }
+  async function submit(){ const r=await fetch('/api/admin/items',{method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({...f, sale_price:Number(f.sale_price||0), cost_price:Number(f.cost_price||0)})}); if (r.ok){ setF({ name:'', image_url:'', category_id:'', description:'', sale_price:'', cost_price:'', is_active:true }); mutate() } }
   return <div className="card p-4 space-y-3">
     <h2 className="font-semibold">Món ăn/đồ uống (giá gốc chỉ hiển thị ở đây)</h2>
     <div className="grid sm:grid-cols-3 gap-4">
@@ -127,10 +114,7 @@ function ManageCoupons(){
   const [f,setF]=useState<any>({ code:'', percent_off:'', max_uses:'', active:true })
   if (error) return <div className="card p-4"><h2 className="font-semibold">Mã giảm giá</h2><p className="text-red-600 text-sm">Lỗi: {String(error.message||error)}</p></div>
   if (!data) return <div className="card p-4"><h2 className="font-semibold">Mã giảm giá</h2><p>Đang tải…</p></div>
-  async function submit(){
-    const r=await fetch('/api/admin/coupons',{method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ ...f, percent_off:Number(f.percent_off||0), max_uses: f.max_uses?Number(f.max_uses):null })})
-    if (r.ok){ setF({ code:'', percent_off:'', max_uses:'', active:true }); mutate() }
-  }
+  async function submit(){ const r=await fetch('/api/admin/coupons',{method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ ...f, percent_off:Number(f.percent_off||0), max_uses: f.max_uses?Number(f.max_uses):null })}); if (r.ok){ setF({ code:'', percent_off:'', max_uses:'', active:true }); mutate() } }
   return <div className="card p-4 space-y-3">
     <h2 className="font-semibold">Mã giảm giá</h2>
     <div className="grid sm:grid-cols-2 gap-4">
