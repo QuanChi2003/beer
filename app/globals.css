@@ -1,0 +1,44 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: light; }
+body { @apply text-neutral-900; }
+.container { @apply mx-auto max-w-6xl px-4; }
+
+/* Font helpers */
+.font-display { font-family: var(--font-display), ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+.font-body    { font-family: var(--font-body), ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+
+/* Theme surfaces */
+.bg-foam { background: linear-gradient(180deg, #fffdf7 0%, #fff 120%); }
+
+/* Components */
+.btn { @apply relative inline-flex items-center gap-2 rounded-full border border-neutral-200 px-4 py-2 text-sm font-medium hover:bg-neutral-100 transition; }
+.btn-primary { @apply bg-brand text-white border-transparent; }
+.btn-primary:after{
+  content:""; position:absolute; inset:auto auto -6px 10%;
+  width:80%; height:10px; background: radial-gradient(ellipse at center, rgba(255,255,255,.8), rgba(255,255,255,0));
+  filter: blur(6px);
+}
+.card { @apply rounded-xl border border-neutral-200 bg-white shadow-card; }
+.input { @apply rounded-md border border-neutral-300 px-3 py-2 w-full; }
+.label { @apply block text-sm font-medium mb-1; }
+.badge { @apply inline-flex items-center rounded-full bg-neutral-100 px-2 py-0.5 text-xs; }
+
+/* “Bọt bia” wave divider */
+.foam-divider { position: relative; }
+.foam-divider:after{
+  content:""; position:absolute; left:0; right:0; bottom:-1px; height:60px;
+  background: url('/foam-divider.svg') center/cover no-repeat;
+}
+
+/* Hero */
+.hero {
+  background: radial-gradient(1200px 600px at 30% -50%, rgba(245,158,11,.35), rgba(245,158,11,0)) , #fff7e6;
+  @apply rounded-xl border border-amber-200 shadow-card overflow-hidden;
+}
+
+/* Sticky nav style enhancements */
+.nav-glass { @apply backdrop-blur-md bg-white/80 border-b sticky top-0 z-50; }
