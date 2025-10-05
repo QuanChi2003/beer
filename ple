@@ -1,0 +1,25 @@
+# === App base ===
+APP_URL=https://beer-kappa.vercel.app/
+
+# === Sessions (change if muốn) ===
+SESSION_SECRET=665cee54d7afae786b118cc4ac194c6b
+COOKIE_KEY_1=622c69d59acee63d3403e747a2e93948
+COOKIE_KEY_2=48a3a2ec8110e3715546c33c1548b37a
+
+# === Supabase Postgres (bắt buộc cho Vercel) ===
+# LẤY tại Supabase → Project Settings → Database → Connection string (psql)
+SUPABASE_DB_URL=postgresql://postgres:QHp9E5brIHYedOv6@db.ijniwmvdrtofeeoikxal.supabase.co:5432/postgres?sslmode=require
+
+# === (Tuỳ chọn) Supabase JS public (không dùng trong bản này, để sẵn nếu bạn muốn mở rộng client) ===
+NEXT_PUBLIC_SUPABASE_URL=https://ijniwmvdrtofeeoikxal.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlqbml3bXZkcnRvZmVlb2lreGFsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTkzMTc0NjUsImV4cCI6MjA3NDg5MzQ2NX0.19DgKRDqpvPSRAqUABlN09JHE6Gqb5doKU0BPsZ1gv0
+
+# === Telegram ===
+TELEGRAM_BOT_TOKEN=8420139694:AAFq_pEnrLYjm-czV6YALa0Jwv60nPbnNQk
+TELEGRAM_CHAT_ID=-1003107435979
+TELEGRAM_INCLUDE_PROFIT=true
+TELEGRAM_SEND_PDF=true
+
+# === Seed admin (lần đầu) ===
+ADMIN_USER=admin
+ADMIN_PASS=admin
