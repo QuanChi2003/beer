@@ -1,0 +1,78 @@
+{
+  "categories": [
+    {
+      "id": "c-drinks",
+      "name": "Drinks",
+      "parent_id": null,
+      "pos": 1
+    },
+    {
+      "id": "c-bites",
+      "name": "Bites",
+      "parent_id": null,
+      "pos": 2
+    },
+    {
+      "id": "c-carbonated",
+      "name": "Carbonated",
+      "parent_id": "c-drinks",
+      "pos": 1
+    },
+    {
+      "id": "c-noncarb",
+      "name": "Non-carbonated",
+      "parent_id": "c-drinks",
+      "pos": 2
+    },
+    {
+      "id": "c-chicken",
+      "name": "Chicken",
+      "parent_id": "c-bites",
+      "pos": 1
+    },
+    {
+      "id": "c-duck",
+      "name": "Duck",
+      "parent_id": "c-bites",
+      "pos": 2
+    }
+  ],
+  "items": [
+    {
+      "id": "i-cola",
+      "name": "Cola 330ml",
+      "description": "Chilled can",
+      "image_url": "https://images.unsplash.com/photo-1517686469429-8bdb88b9f907",
+      "category_id": "c-carbonated",
+      "sale_price": 15000,
+      "cost_price": 7000
+    },
+    {
+      "id": "i-icetea",
+      "name": "Iced Tea",
+      "description": "Homemade tea",
+      "image_url": "https://images.unsplash.com/photo-1519677100203-a0e668c92439",
+      "category_id": "c-noncarb",
+      "sale_price": 12000,
+      "cost_price": 5000
+    },
+    {
+      "id": "i-friedchicken",
+      "name": "Fried Chicken",
+      "description": "Crispy chicken",
+      "image_url": "https://images.unsplash.com/photo-1544025162-d76694265947",
+      "category_id": "c-chicken",
+      "sale_price": 65000,
+      "cost_price": 35000
+    },
+    {
+      "id": "i-crispyduck",
+      "name": "Crispy Duck",
+      "description": "Golden roasted duck",
+      "image_url": "https://images.unsplash.com/photo-1625944527793-08d0b1a4dd1a",
+      "category_id": "c-duck",
+      "sale_price": 90000,
+      "cost_price": 45000
+    }
+  ]
+}

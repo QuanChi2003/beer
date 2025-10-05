@@ -1,0 +1,18 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: light; }
+body { @apply text-neutral-900; }
+.container { @apply mx-auto max-w-6xl px-4; }
+
+/* Components */
+.btn { @apply relative inline-flex items-center gap-2 rounded-full border border-neutral-200 px-4 py-2 text-sm font-medium hover:bg-neutral-100 transition; }
+.btn-primary { @apply bg-brand text-white border-transparent; }
+.card { @apply rounded-xl border border-neutral-200 bg-white shadow-card; }
+.input { @apply rounded-md border border-neutral-300 px-3 py-2 w-full; }
+.label { @apply block text-sm font-medium mb-1; }
+
+.nav-glass { @apply backdrop-blur-md bg-white/80 border-b sticky top-0 z-50; }
+.bg-foam { background: linear-gradient(180deg, #fffdf7 0%, #fff 120%); }
