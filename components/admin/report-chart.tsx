@@ -1,8 +1,27 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
-import { Chart, registerables } from 'chart.js';
-Chart.register(...registerables);
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+
+// Register Chart.js elements
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 interface ReportChartProps {
   range: 'day' | 'week' | 'month' | 'year';
@@ -37,36 +56,12 @@ export default function ReportChart({ range }: ReportChartProps) {
     ],
   };
 
-  return (
-    ```chartjs
-    {
-      "type": "line",
-      "data": {
-        "labels": ${JSON.stringify(chartData.labels)},
-        "datasets": [
-          {
-            "label": "Doanh thu",
-            "data": ${JSON.stringify(chartData.datasets[0].data)},
-            "borderColor": "#2563eb",
-            "backgroundColor": "#2563eb",
-            "fill": false
-          },
-          {
-            "label": "Lợi nhuận",
-            "data": ${JSON.stringify(chartData.datasets[1].data)},
-            "borderColor": "#16a34a",
-            "backgroundColor": "#16a34a",
-            "fill": false
-          }
-        ]
-      },
-      "options": {
-        "responsive": true,
-        "scales": {
-          "y": { "beginAtZero": true }
-        }
-      }
-    }
-    ```
-  );
+  const options = {
+    responsive: true,
+    scales: {
+      y: { beginAtZero: true },
+    },
+  };
+
+  return <Line data={chartData} options={options} />;
 }
